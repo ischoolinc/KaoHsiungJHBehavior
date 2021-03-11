@@ -104,10 +104,9 @@ namespace JHSchool.Behavior.ImportExport
                 {
                     if (!CacheMoralScore.ContainsKey(record.ID))
                         CacheMoralScore.Add(record.ID, record);
-
-                    if (!StudentIDList.Contains(record.RefStudentID))
-                        StudentIDList.Add(record.RefStudentID);
                 }
+
+                StudentIDList = e.Items.Select(x => x.ID).ToList();
 
                 List<JHStudentRecord> StudentList = JHStudent.SelectByIDs(StudentIDList);
                 foreach (JHStudentRecord stud in StudentList)
