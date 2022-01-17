@@ -314,7 +314,10 @@ namespace KaoHsiung.DailyLife.StudentRoutineWork
                     {
                         if (obj.TextScoreDic[moralScore].ContainsKey(BehaviorConfigName2))
                         {
-                            Write(MoralScore2, obj.TextScoreDic[moralScore][BehaviorConfigName2]);
+                            if (obj.TextScoreDic[moralScore][BehaviorConfigName2] != "GroupActivity")
+                            {
+                                Write(MoralScore2, obj.TextScoreDic[moralScore][BehaviorConfigName2]);
+                            }
                         }
 
                         //如果下一隔不是空的

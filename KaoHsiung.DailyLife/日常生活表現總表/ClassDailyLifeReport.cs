@@ -340,14 +340,14 @@ namespace KaoHsiung.DailyLife.日常生活表現總表
                 wb.Worksheets["範本"].Cells[2, AttendanceColumn].PutValue(groupActivity.GetAttribute("Name"));
 
                 //因為社團活動,所以把社團活動手動增加
-                ColumnInTitleIndex.Add("社團活動", AttendanceColumn);
-                wb.Worksheets[SheetTitle].Cells[3, AttendanceColumn].PutValue("社團活動");
-                wb.Worksheets["範本"].Cells[3, AttendanceColumn].PutValue("社團活動");
-                AttendanceColumn++;
+                //ColumnInTitleIndex.Add("社團活動", AttendanceColumn);
+                //wb.Worksheets[SheetTitle].Cells[3, AttendanceColumn].PutValue("社團活動");
+                //wb.Worksheets["範本"].Cells[3, AttendanceColumn].PutValue("社團活動");
+                //AttendanceColumn++;
 
                 foreach (XmlElement item in groupActivity.SelectNodes("Item"))
                 {
-                    if (item.GetAttribute("Name") == "社團活動")
+                    if (item.GetAttribute("Name") == "社團活動" || item.GetAttribute("Name") == "自治活動")
                         continue;
 
                     ColumnInTitleIndex.Add(item.GetAttribute("Name"), AttendanceColumn);
@@ -468,7 +468,7 @@ namespace KaoHsiung.DailyLife.日常生活表現總表
             //標題合併
             wb.Worksheets[SheetTitle].Cells.Merge(0, 0, 1, AttendanceColumn++);
             wb.Worksheets["範本"].Cells.Merge(0, 0, 1, AttendanceColumn++);
-
+            
             Range RangeDetil = wb.Worksheets["範本"].Cells.CreateRange(0, 4, false);
             Range RangeRow = wb.Worksheets["範本"].Cells.CreateRange(4, 1, false);
 
@@ -535,13 +535,13 @@ namespace KaoHsiung.DailyLife.日常生活表現總表
 
                             XmlElement GroupActivityNode = (XmlElement)MSR.TextScore.SelectSingleNode("GroupActivity");
 
-                            BehaviorDic.Add("社團活動", StudAssn);
+                            //BehaviorDic.Add("社團活動", StudAssn);
 
                             if (GroupActivityNode != null)
                             {
                                 foreach (XmlElement item in GroupActivityNode.SelectNodes("Item"))
                                 {
-                                    if (item.GetAttribute("Name") == "社團活動")
+                                    if (item.GetAttribute("Name") == "社團活動" || item.GetAttribute("Name") == "自治活動")
                                         continue;
 
                                     if (ColumnInTitleIndex.ContainsKey(item.GetAttribute("Name")))

@@ -456,7 +456,7 @@ namespace KaoHsiung.DailyLife.StudentRoutineWork
                     foreach (XmlElement item in helper1.GetElements("GroupActivity/Item"))
                     {
 
-                        if (item.GetAttribute("Name") == "社團活動")
+                        if (item.GetAttribute("Name") == "社團活動" || item.GetAttribute("Name") == "自治活動")
                             continue;
 
                         if (!string.IsNullOrEmpty(item.GetAttribute("Degree")))
