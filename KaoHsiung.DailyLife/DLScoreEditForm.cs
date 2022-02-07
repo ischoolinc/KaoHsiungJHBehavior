@@ -244,6 +244,13 @@ namespace KaoHsiung.DailyLife
             dgvGroupActivity.ReadOnly = !_permission.Editable;
             dgvPublicService.ReadOnly = !_permission.Editable;
             dgvSchoolSpecial.ReadOnly = !_permission.Editable;
+
+            List<int> colsDgvGroupActivity = new List<int>() { 1 };
+            Campus.Windows.DataGridViewImeDecorator dec = new Campus.Windows.DataGridViewImeDecorator(this.dgvGroupActivity, colsDgvGroupActivity);
+
+            List<int> colsDgvDailyBehavior = new List<int>() { 2 };
+            Campus.Windows.DataGridViewImeDecorator dec2 = new Campus.Windows.DataGridViewImeDecorator(this.dgvDailyBehavior, colsDgvDailyBehavior);
+
         }
 
         private void BindData()
