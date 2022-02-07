@@ -83,10 +83,12 @@ namespace KaoHsiung.DailyLife.ClassDailyLife
             cboSchoolYear.SelectedIndexChanged += new EventHandler(cboSchoolYear_SelectedIndexChanged);
             cboSemester.SelectedIndexChanged += new EventHandler(cboSemester_SelectedIndexChanged);
 
-            BGW.RunWorkerAsync(); 
+            BGW.RunWorkerAsync();
             #endregion
 
             dataGridViewX1.Focus();
+            // 設定全形半形 (全部欄位)
+            Campus.Windows.DataGridViewImeDecorator dec = new Campus.Windows.DataGridViewImeDecorator(this.dataGridViewX1);
         }
 
         /// <summary>
@@ -241,7 +243,7 @@ namespace KaoHsiung.DailyLife.ClassDailyLife
             DataCheng();
 
             DataListener.Reset();
-            DataListener.ResumeListen(); 
+            DataListener.ResumeListen();
             #endregion
         }
 
@@ -295,7 +297,7 @@ namespace KaoHsiung.DailyLife.ClassDailyLife
                 {
                     SetColumnNameLock(each, 400);
                 }
-            } 
+            }
             #endregion
         }
 
@@ -430,7 +432,7 @@ namespace KaoHsiung.DailyLife.ClassDailyLife
                 }
 
                 dataGridViewX1.Rows.Add(row);
-            } 
+            }
             #endregion
         }
 
@@ -723,7 +725,7 @@ namespace KaoHsiung.DailyLife.ClassDailyLife
 
                 ApplicationLog.Log("日常生活表現模組.評等輸入", "修改日常生活表現資料", sc.ToString());
 
-            } 
+            }
             #endregion
 
             #endregion
@@ -848,7 +850,7 @@ namespace KaoHsiung.DailyLife.ClassDailyLife
             {
                 dataGridViewX1.Columns[x].Visible = false; //如果是ID要隱藏
             }
-        } 
+        }
         #endregion
 
         #region 切換資料操作(事件)
@@ -1032,7 +1034,7 @@ namespace KaoHsiung.DailyLife.ClassDailyLife
                 }
                 #endregion
             }
-            else if(cboPrefs.SelectedIndex == 1) //替換努力程度
+            else if (cboPrefs.SelectedIndex == 1) //替換努力程度
             {
                 #region GroupActivity
                 if (CurrCell.OwningColumn.HeaderText.Contains("努力程度"))
@@ -1055,7 +1057,7 @@ namespace KaoHsiung.DailyLife.ClassDailyLife
                     {
                         CurrCell.Style.BackColor = Color.Pink;
                     }
-                } 
+                }
                 #endregion
             }
             CheckSaveButtonEnabled();
@@ -1143,7 +1145,7 @@ namespace KaoHsiung.DailyLife.ClassDailyLife
             else
             {
                 btnSave.Enabled = false;
-            } 
+            }
             #endregion
         }
     }

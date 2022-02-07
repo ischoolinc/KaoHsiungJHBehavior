@@ -17,6 +17,7 @@ using K12.Data.Utility;
 using FISCA.LogAgent;
 using JHSchool.Behavior.BusinessLogic;
 using JHSchool.Behavior;
+using Campus.Windows;
 
 namespace KaoHsiung.DailyLife
 {
@@ -114,7 +115,6 @@ namespace KaoHsiung.DailyLife
             SyndLoad(); //建立預設畫面
 
             BindData(); //填入資料
-
         }
 
         /// <summary>
@@ -221,8 +221,19 @@ namespace KaoHsiung.DailyLife
 
             dataGridViewX3.Rows.Add();
             dataGridViewX4.Rows.Add();
+            #endregion
 
+            #region 處理dataGridView可填入數字部分轉半形英數
 
+            DataGridViewImeDecorator decX3 = new DataGridViewImeDecorator(this.dataGridViewX3);
+
+            DataGridViewImeDecorator decX4 = new DataGridViewImeDecorator(this.dataGridViewX4);
+
+            List<int> colsDgvGroupActivity = new List<int>() { 1 };
+            DataGridViewImeDecorator dec = new DataGridViewImeDecorator(this.dgvGroupActivity, colsDgvGroupActivity);
+
+            List<int> colsDgvDailyBehavior = new List<int>() { 2 };
+            DataGridViewImeDecorator dec2 = new DataGridViewImeDecorator(this.dgvDailyBehavior, colsDgvDailyBehavior);
             #endregion
         }
 
@@ -983,7 +994,7 @@ namespace KaoHsiung.DailyLife
         {
             #region 取得假別項目
 
-            List<string> list = new List<string>();          
+            List<string> list = new List<string>();
 
             foreach (JHAbsenceMappingInfo element in JHAbsenceMapping.SelectAll())
             {
