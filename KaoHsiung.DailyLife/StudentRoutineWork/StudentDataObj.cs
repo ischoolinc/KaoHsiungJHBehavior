@@ -92,7 +92,7 @@ namespace KaoHsiung.DailyLife.StudentRoutineWork
         /// <summary>
         /// 社團活動
         /// </summary>
-        public Dictionary<string, string> AssnDic = new Dictionary<string, string>();
+        //public Dictionary<string, string> AssnDic = new Dictionary<string, string>();
 
         /// <summary>
         /// 努力程度物件
@@ -121,7 +121,7 @@ namespace KaoHsiung.DailyLife.StudentRoutineWork
             ExecuteSemesterSet();
 
             //處理社團活動
-            ExecuteAssnCode();
+            //ExecuteAssnCode();
 
             //處理日常生活表現
             ExecuteMoralScore();
@@ -307,57 +307,57 @@ namespace KaoHsiung.DailyLife.StudentRoutineWork
         /// <summary>
         /// 社團活動資料整理
         /// </summary>
-        private void ExecuteAssnCode()
-        {
-            foreach (AssnCode each in ListAssnCode)
-            {
-                string AssnScore = "";
+        //private void ExecuteAssnCode()
+        //{
+        //    foreach (AssnCode each in ListAssnCode)
+        //    {
+        //        string AssnScore = "";
 
-                if (each.Scores == "")
-                    continue;
+        //        if (each.Scores == "")
+        //            continue;
 
-                string SchoolYearSemester = each.SchoolYear + "/" + each.Semester;
+        //        string SchoolYearSemester = each.SchoolYear + "/" + each.Semester;
 
-                XmlElement xml = DSXmlHelper.LoadXml(each.Scores);
-                foreach (XmlElement item in xml.SelectNodes("Item"))
-                {
-                    string x1 = "社團表現：" + item.GetAttribute("Score");
-                    string x2 = "社團表現：" + item.GetAttribute("Effort");
-                    string x3 = "社團表現：" + item.GetAttribute("Text");
+        //        XmlElement xml = DSXmlHelper.LoadXml(each.Scores);
+        //        foreach (XmlElement item in xml.SelectNodes("Item"))
+        //        {
+        //            string x1 = "社團表現：" + item.GetAttribute("Score");
+        //            string x2 = "社團表現：" + item.GetAttribute("Effort");
+        //            string x3 = "社團表現：" + item.GetAttribute("Text");
 
-                    if (x1 != "社團表現：")
-                    {
-                        AssnScore += "" + x1 + "。";
-                    }
+        //            if (x1 != "社團表現：")
+        //            {
+        //                AssnScore += "" + x1 + "。";
+        //            }
 
-                    if (x2 != "社團表現：")
-                    {
-                        int jj;
-                        if (int.TryParse(item.GetAttribute("Effort"), out jj))
-                        {
-                            AssnScore += "" + Effor.GetTextByCode(jj) + "。";
-                        }
-                        else
-                        {
-                            AssnScore += "" + x2 + "。";
-                        }
-                    }
+        //            if (x2 != "社團表現：")
+        //            {
+        //                int jj;
+        //                if (int.TryParse(item.GetAttribute("Effort"), out jj))
+        //                {
+        //                    AssnScore += "" + Effor.GetTextByCode(jj) + "。";
+        //                }
+        //                else
+        //                {
+        //                    AssnScore += "" + x2 + "。";
+        //                }
+        //            }
 
-                    if (x3 != "社團表現：")
-                    {
-                        AssnScore += "" + x3 + "。";
-                    }
-                }
-                if (AssnScore != string.Empty)
-                {
-                    //2013/7/2 - 社團成績只取1筆資料
-                    if (!AssnDic.ContainsKey(SchoolYearSemester))
-                    {
-                        AssnDic.Add(SchoolYearSemester, AssnScore);
-                    }
-                }
-            }
-        }
+        //            if (x3 != "社團表現：")
+        //            {
+        //                AssnScore += "" + x3 + "。";
+        //            }
+        //        }
+        //        if (AssnScore != string.Empty)
+        //        {
+        //            //2013/7/2 - 社團成績只取1筆資料
+        //            if (!AssnDic.ContainsKey(SchoolYearSemester))
+        //            {
+        //                AssnDic.Add(SchoolYearSemester, AssnScore);
+        //            }
+        //        }
+        //    }
+        //}
 
         /// <summary>
         /// 日常生活表現資料整理
@@ -447,11 +447,11 @@ namespace KaoHsiung.DailyLife.StudentRoutineWork
                     //{
                     string GroupActivityText = string.Empty;
 
-                    //社團處理
-                    if (AssnDic.ContainsKey(SchoolYearSemester))
-                    {
-                        GroupActivityText += AssnDic[SchoolYearSemester];
-                    }
+                    //社團處理 - 2022/1/18 高雄小組決議移除
+                    //if (AssnDic.ContainsKey(SchoolYearSemester))
+                    //{
+                    //    GroupActivityText += AssnDic[SchoolYearSemester];
+                    //}
 
                     foreach (XmlElement item in helper1.GetElements("GroupActivity/Item"))
                     {
