@@ -3,7 +3,6 @@ using FISCA.Presentation;
 using Framework;
 using Framework.Security;
 using JHSchool;
-using JHSchool.Affair;
 using KaoHsiung.DailyLife.ClassDailyLife;
 using KaoHsiung.DailyLife.Properties;
 using KaoHsiung.DailyLife.StudentRoutineWork;
@@ -21,7 +20,7 @@ namespace KaoHsiung.DailyLife
 
             #region 日常生活表現評等設定
             //設定畫面
-            RibbonBarItem KBKeyIn = StuAdmin.Instance.RibbonBarItems["基本設定"];
+            RibbonBarItem KBKeyIn = FISCA.Presentation.MotherForm.RibbonBarItems["學務作業", "基本設定"];
             KBKeyIn["設定"]["日常生活表現評量設定"].Enable = User.Acl["JHSchool.StuAdmin.Ribbon0020"].Executable;
             KBKeyIn["設定"]["日常生活表現評量設定"].Click += delegate
             {
@@ -43,7 +42,7 @@ namespace KaoHsiung.DailyLife
                  roto.ShowDialog();
             };
 
-            RibbonBarItem StuItem = StuAdmin.Instance.RibbonBarItems["批次作業/查詢"];
+            RibbonBarItem StuItem = FISCA.Presentation.MotherForm.RibbonBarItems["學務作業", "批次作業/查詢"];
             StuItem["評等輸入狀況"].Image = Properties.Resources.ink_ok_64;
             StuItem["評等輸入狀況"].Enable = User.Acl["JHSchool.StuAdmin.Ribbon00110"].Executable;
             StuItem["評等輸入狀況"].Click += delegate

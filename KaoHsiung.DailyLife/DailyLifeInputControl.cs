@@ -43,6 +43,9 @@ namespace KaoHsiung.DailyLife
         {
             lblSemester.Text = string.Format("{0}學年度　第{1}學期", School.DefaultSchoolYear, School.DefaultSemester);
 
+            List<string> cols = new List<string>() { "年級" , "開始時間" , "結束時間" };
+            Campus.Windows.DataGridViewImeDecorator dec = new Campus.Windows.DataGridViewImeDecorator(this.dgvTimes, cols);
+
             //先將 Grid 填入此學校有的年級。
             FillGridViewGradeYear();
 
