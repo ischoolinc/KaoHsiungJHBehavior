@@ -37,6 +37,7 @@ namespace KaoHsiung.DailyLife
         public DailyLifeInputControl()
         {
             InitializeComponent();
+            Campus.Windows.DataGridViewImeDecorator dec = new Campus.Windows.DataGridViewImeDecorator(this.dgvTimes);
         }
 
         private void DailyLifeInputControl_Load(object sender, EventArgs e)
