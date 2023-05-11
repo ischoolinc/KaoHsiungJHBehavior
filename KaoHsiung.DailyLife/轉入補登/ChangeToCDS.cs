@@ -51,6 +51,10 @@ namespace KaoHsiung.DailyLife
             //扣掉懲戒
             foreach (JHDemeritRecord each in DemeritList)
             {
+                //20230511 - 如果銷過就跳過
+                if (each.Cleared == "是")
+                    continue;
+
                 if (each.DemeritA.HasValue)
                 {
                     obj.DemeritA = obj.DemeritA - each.DemeritA.Value;
