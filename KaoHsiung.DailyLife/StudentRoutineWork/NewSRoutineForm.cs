@@ -209,7 +209,15 @@ namespace KaoHsiung.DailyLife.StudentRoutineWork
                 name.Add("時間");
                 value.Add(DateTime.Now.ToString("HH:mm:ss"));
 
-                PageOne.MailMerge.Execute(name.ToArray(), value.ToArray());
+                List<string> value2 = new List<string>();
+                foreach (string each in value)
+                {
+                    if (!string.IsNullOrEmpty(each))
+                        value2.Add(SurrogatePairString(each));
+                    else
+                        value2.Add(each);
+                }
+                PageOne.MailMerge.Execute(name.ToArray(), value2.ToArray());
                 #endregion
 
                 #region 異動處理
@@ -609,6 +617,28 @@ namespace KaoHsiung.DailyLife.StudentRoutineWork
             e.Result = _doc;
         }
 
+        /// <summary>
+        /// 將特殊字用空白表示
+        /// </summary>
+        public string SurrogatePairString(string input)
+        {
+            string value = "";
+            int idx = 0;
+            foreach (char c in input)
+            {
+                if (char.IsSurrogatePair(input, idx) || char.IsSurrogate(c))
+                {
+                    value += " ";
+                }
+                else
+                {
+                    value += c;
+                }
+                idx++;
+            }
+            return value;
+        }
+
 
 
         public Dictionary<string, udt_K12EmergencyContact> GetEmergencyContactor(List<string> list)
@@ -775,7 +805,7 @@ namespace KaoHsiung.DailyLife.StudentRoutineWork
             if (cell.FirstParagraph == null)
                 cell.Paragraphs.Add(new Paragraph(cell.Document));
             cell.FirstParagraph.Runs.Clear();
-            _run.Text = text;
+            _run.Text = SurrogatePairString(text);
             _run.Font.Size = 10;
             _run.Font.Name = "標楷體";
             cell.FirstParagraph.Runs.Add(_run.Clone(true));
