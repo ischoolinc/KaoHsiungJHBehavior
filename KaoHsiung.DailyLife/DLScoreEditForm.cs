@@ -355,28 +355,35 @@ namespace KaoHsiung.DailyLife
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            if (Mode == "NEW")
+            if (int.TryParse(cbSchoolYear.Text, out int year) && int.TryParse(cbSemester.Text, out int seme))
             {
-                List<JHMoralScoreRecord> MSRList = JHMoralScore.SelectByStudentIDs(new string[] { _SR.ID });
-
-                foreach (JHMoralScoreRecord each in MSRList)
+                if (Mode == "NEW")
                 {
-                    if (each.SchoolYear.ToString() == cbSchoolYear.Text && each.Semester.ToString() == cbSemester.Text)
-                    {
-                        FISCA.Presentation.Controls.MsgBox.Show("該學年度學期資料已經存在,無法新增");
-                        return;
-                    }
-                }
+                    List<JHMoralScoreRecord> MSRList = JHMoralScore.SelectByStudentIDs(new string[] { _SR.ID });
 
-                newSaveData();
-            }
-            else if (Mode == "UPDATA")
-            {
-                updataSaveData();
+                    foreach (JHMoralScoreRecord each in MSRList)
+                    {
+                        if (each.SchoolYear.ToString() == cbSchoolYear.Text && each.Semester.ToString() == cbSemester.Text)
+                        {
+                            FISCA.Presentation.Controls.MsgBox.Show("該學年度學期資料已經存在,無法新增");
+                            return;
+                        }
+                    }
+
+                    newSaveData();
+                }
+                else if (Mode == "UPDATA")
+                {
+                    updataSaveData();
+                }
+                else
+                {
+                    return;
+                }
             }
             else
             {
-                return;
+                FISCA.Presentation.Controls.MsgBox.Show("請輸入正確的學年度/學期");
             }
         }
 
@@ -775,54 +782,66 @@ namespace KaoHsiung.DailyLife
 
         private void cbSchoolYear_TextChanged(object sender, EventArgs e)
         {
-            JHMoralScoreRecord CheckMSR = JHMoralScore.SelectBySchoolYearAndSemester(_PrimaryKey, int.Parse(cbSchoolYear.Text), int.Parse(cbSemester.Text));
-            DataListener.SuspendListen(); //終止變更判斷
-            if (CheckMSR == null)
+            if (int.TryParse(cbSchoolYear.Text, out int year) && int.TryParse(cbSemester.Text, out int seme))
             {
-                Mode = "NEW";
-                _editorRecord = new JHMoralScoreRecord();
-                SyndLoad();
+                JHMoralScoreRecord CheckMSR = JHMoralScore.SelectBySchoolYearAndSemester(_PrimaryKey, year, seme);
+                DataListener.SuspendListen(); //終止變更判斷
+                if (CheckMSR == null)
+                {
+                    Mode = "NEW";
+                    _editorRecord = new JHMoralScoreRecord();
+                    SyndLoad();
+                }
+                else
+                {
+                    Mode = "UPDATA";
+                    _editorRecord = CheckMSR;
+
+                    SyndLoad();
+
+                    BindData();
+                }
+                DataListener.Reset();
+                DataListener.ResumeListen();
+                inputErrors.Clear();
+                btnSave.Enabled = true;
             }
             else
             {
-                Mode = "UPDATA";
-                _editorRecord = CheckMSR;
-
-                SyndLoad();
-
-                BindData();
+                FISCA.Presentation.Controls.MsgBox.Show("請輸入正確的學年度/學期");
             }
-            DataListener.Reset();
-            DataListener.ResumeListen();
-            inputErrors.Clear();
-            btnSave.Enabled = true;
-
         }
 
         private void cbSemester_TextChanged(object sender, EventArgs e)
         {
-            JHMoralScoreRecord CheckMSR = JHMoralScore.SelectBySchoolYearAndSemester(_PrimaryKey, int.Parse(cbSchoolYear.Text), int.Parse(cbSemester.Text));
-            DataListener.SuspendListen(); //終止變更判斷
-            if (CheckMSR == null)
+            if (int.TryParse(cbSchoolYear.Text, out int year) && int.TryParse(cbSemester.Text, out int seme))
             {
-                Mode = "NEW";
-                _editorRecord = new JHMoralScoreRecord();
-                SyndLoad();
+                JHMoralScoreRecord CheckMSR = JHMoralScore.SelectBySchoolYearAndSemester(_PrimaryKey, year, seme);
+                DataListener.SuspendListen(); //終止變更判斷
+                if (CheckMSR == null)
+                {
+                    Mode = "NEW";
+                    _editorRecord = new JHMoralScoreRecord();
+                    SyndLoad();
+                }
+                else
+                {
+                    Mode = "UPDATA";
+                    _editorRecord = CheckMSR;
+
+                    SyndLoad();
+
+                    BindData();
+                }
+                DataListener.Reset();
+                DataListener.ResumeListen();
+                inputErrors.Clear();
+                btnSave.Enabled = true;
             }
             else
             {
-                Mode = "UPDATA";
-                _editorRecord = CheckMSR;
-
-                SyndLoad();
-
-                BindData();
+                FISCA.Presentation.Controls.MsgBox.Show("請輸入正確的學年度/學期");
             }
-            DataListener.Reset();
-            DataListener.ResumeListen();
-            inputErrors.Clear();
-            btnSave.Enabled = true;
         }
-
     }
 }
