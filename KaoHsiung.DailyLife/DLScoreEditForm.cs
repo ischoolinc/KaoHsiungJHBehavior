@@ -80,6 +80,9 @@ namespace KaoHsiung.DailyLife
 
             _SR = JHStudent.SelectByID(_PrimaryKey); //取得學生
 
+            this.cbSchoolYear.TextChanged -= new System.EventHandler(this.cbSchoolYear_TextChanged);
+            this.cbSemester.TextChanged -= new System.EventHandler(this.cbSemester_TextChanged);
+
             #region 學年度學期
             string schoolYear = K12.Data.School.DefaultSchoolYear;
             cbSchoolYear.Text = schoolYear;
